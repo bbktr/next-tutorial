@@ -1,3 +1,4 @@
+// 動的ルーティン
 type Params = {
     params: Promise<{
         id:string
