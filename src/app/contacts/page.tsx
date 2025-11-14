@@ -1,3 +1,9 @@
+import ContactForm from "@/components/ContactForm";
+
 export default function ContactPage() {
-    return <div></div>;
+    return (
+        <div>
+            <ContactForm />
+        </div>
+    );
 }
