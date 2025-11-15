@@ -1,10 +1,16 @@
 "use client";
 import { submitContactForm } from "@/lib/actions/contact";
+import { useActionState } from "react";
 
 export default function ContactForm() {
+    const [state, formAction] = useActionState(submitContactForm, {
+        success: false,
+        errors: {},
+    });
+
     return (
         <div>
-            <form action={submitContactForm}>
+            <form action={formAction}>
                 <div className="py-24 text-gray-600">
                     <div className="md:w-1/2 bg-white rounded-lg p-8 flex flex-col mx-auto shadow-md">
                         <h2 className="text-lg mb2">お問い合わせ</h2>
@@ -18,6 +24,11 @@ export default function ContactForm() {
                                 name="name"
                                 className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none py-1 px-3 leading-8"
                             />
+                            {state.errors.name && (
+                                <p className="text-red-500 texts-sm mt-1">
+                                    {state.errors.name.join(",")}
+                                </p>
+                            )}
                         </div>
                         <div className="m-4">
                             <label htmlFor="email" className="text-sm">
@@ -29,6 +40,11 @@ export default function ContactForm() {
                                 name="email"
                                 className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none py-1 px-3 leading-8"
                             />
+                            {state.errors.email && (
+                                <p className="text-red-500 texts-sm mt-1">
+                                    {state.errors.email.join(",")}
+                                </p>
+                            )}
                         </div>
                         <button className="w-1/3 mx-auto my-1 text-white bg-indigo-500 py-2 px-6 hover:bg-indigo-600 rounded text-large">
                             送信
